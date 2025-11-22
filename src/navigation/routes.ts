@@ -18,6 +18,7 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
   PROFILE: "/profile",
   SETTINGS: "/settings",
+  TRACKER:"/tracker",
   WELLNESS_DASHBOARD: "/wellness-dashboard",
 
   // Add more routes here as needed
@@ -61,6 +62,11 @@ export const ROUTE_METADATA = {
   },
   [ROUTES.WELLNESS_DASHBOARD]: {
     title: "Wellness Dashboard",
+    isPublic: false,
+    requiresAuth: true,
+  },
+  [ROUTES.TRACKER]: {
+    title: "Patient Goal Tracker",
     isPublic: false,
     requiresAuth: true,
   },

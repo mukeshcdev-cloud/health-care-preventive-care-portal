@@ -35,6 +35,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import LoginScreen from "../components/LoginScreen";
 import RegistrationScreen from "../components/RegistrationScreen";
 import Dashboard from "../components/Dashboard";
+import PatientGoalTracker from "../components/patientGoalTracker";
 
 // Import future pages here as you create them
 import Profile from "../pages/Profile";
@@ -61,6 +62,16 @@ const AppRouter = () => {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+       {/* Tracker Route - Main wellness dashboard */}
+      <Route
+        path={ROUTES.TRACKER}
+        element={
+          <ProtectedRoute>
+            <PatientGoalTracker />
           </ProtectedRoute>
         }
       />
