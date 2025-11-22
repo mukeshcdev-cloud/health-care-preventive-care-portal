@@ -1,58 +1,34 @@
-require("dotenv").config();
-const cluster = require("cluster");
-const os = require("os");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/database.js";
+import patientRoutes from "./routes/patients.js";
+import complianceNoteRoutes from "./routes/complianceNotes.js";
 
-const numCPUs = os.cpus().length;
+dotenv.config();
 
-if (cluster.isPrimary) {
-  console.log(`Primary process started. PID: ${process.pid}`);
-  console.log(`Starting ${numCPUs} worker processes...`);
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-  // Fork workers
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-  // Auto restart crashed workers
-  cluster.on("exit", (worker, code, signal) => {
-    console.log(
-      `Worker ${worker.process.pid} died. Starting a new one...`
-    );
-    cluster.fork();
-  });
+// Connect to MongoDB
+connectDB();
 
-} else {
-  // Worker processes run the actual server
-  const express = require("express");
-  const bodyParser = require("body-parser");
-  const cors = require("cors");
-  const connectDB = require("./src/config/db");
-  const authRoutes = require("./src/routes/authRoutes");
+// Routes
+app.use("/api/patients", patientRoutes);
+app.use("/api/compliance-notes", complianceNoteRoutes);
 
-  const app = express();
+// Health check
+app.get("/api/health", (req, res) => {
+  res.json({ status: "OK", message: "Health Care API is running" });
+});
 
-  // ---- Middleware ---- //
-  app.use(cors());
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
+// Start server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
+});
 
-  // ---- Connect to MongoDB ---- //
-  connectDB();
-
-  // ---- Routes ---- //
-  app.use("/auth", authRoutes);
-
-  // ---- Health Check Route ---- //
-  app.get("/", (req, res) => {
-    res.json({
-      message: "API Running",
-      worker: process.pid,
-    });
-  });
-
-  // ---- Start Server ---- //
-  const PORT = process.env.PORT || 4000;
-  app.listen(PORT, () =>
-    console.log(`Worker running on port ${PORT} with PID: ${process.pid}`)
-  );
-}

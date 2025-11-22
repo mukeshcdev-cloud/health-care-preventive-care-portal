@@ -5,14 +5,13 @@
  * Sets up the theme, routing, and global providers.
  */
 
-import { BrowserRouter as Router } from "react-router-dom";
 import {
   StyledEngineProvider,
   ThemeProvider,
   createTheme,
 } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { AppRouter } from "./navigation";
+import Layout from "./Layout";
 
 /**
  * Material UI Theme Configuration
@@ -20,7 +19,7 @@ import { AppRouter } from "./navigation";
  */
 
 import { configureStore } from "@reduxjs/toolkit";
-import reducer, { store } from "./redux/mainReducer";
+import reducer from "./redux/mainReducer";
 import { Provider } from "react-redux";
 import { GlobalStyles } from "@mui/material";
 
@@ -36,11 +35,6 @@ const theme = createTheme({
       light: "#4FC3F7",
       dark: "#01579B",
     },
-    accent: {
-      main: "#673AB7",
-      light: "#9572D2",
-      dark: "#482880",
-    },
     background: {
       default: "#F0F7F7", // Light teal background
       paper: "#FFFFFF",
@@ -53,6 +47,7 @@ const theme = createTheme({
     borderRadius: 12,
   },
 });
+const store = configureStore({ reducer: { root: reducer } });
 function App() {
   return (
     <StyledEngineProvider enableCssLayer>
@@ -60,9 +55,7 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Router>
-            <AppRouter />
-          </Router>
+          <Layout />
         </ThemeProvider>
       </Provider>
     </StyledEngineProvider>
