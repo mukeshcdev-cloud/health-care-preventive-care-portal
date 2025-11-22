@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
+import { Box, Toolbar } from "@mui/material";
 import ResponsiveDrawer from "./components/Sidebar";
 import Main from "./screens/Root";
 import ProviderLayout from "./components/Provider/ProviderLayout";
@@ -8,12 +9,21 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <div>
+      <Box sx={{ display: "flex" }}>
         <ResponsiveDrawer />
-        <div className="pl-0 md:pl-[239px]">
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            width: { sm: `calc(100% - 240px)` },
+            minHeight: "100vh",
+            backgroundColor: "#f5f5f5",
+          }}
+        >
+          <Toolbar />
           <Main />
-        </div>
-      </div>
+        </Box>
+      </Box>
     ),
   },
   {
