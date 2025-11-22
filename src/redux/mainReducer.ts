@@ -1,3 +1,4 @@
+import { medicalHealthTips } from "./../constants/healthTips";
 import {
   configureStore,
   createSlice,
@@ -9,12 +10,14 @@ type ReduxState = {
   count: number;
   loading: boolean;
   error: string | null;
+  healthTip: string;
   patientDashboard: {
     stepsTaken: number | null;
     sleepHours: { day: DayOfWeek; value: number }[];
     waterIntake: number | null;
     calories: number | null;
     hydration: number | null;
+    reminders: { id: number; title: string; date: string }[];
   };
 };
 
@@ -31,6 +34,8 @@ const initialState: ReduxState = {
   count: 0,
   loading: false,
   error: null,
+  healthTip:
+    medicalHealthTips[Math.floor(Math.random() * medicalHealthTips.length)],
   patientDashboard: {
     stepsTaken: 7500,
     sleepHours: [
@@ -45,6 +50,11 @@ const initialState: ReduxState = {
     waterIntake: 7.5,
     calories: 600,
     hydration: 1.5,
+    reminders: [
+      { id: 1, title: "Annual Blood Test", date: "25 Jan 2025" },
+      { id: 2, title: "Dental Checkup", date: "10 Feb 2025" },
+      { id: 3, title: "Eye Examination", date: "15 Feb 2025" },
+    ],
   },
 };
 
@@ -52,6 +62,12 @@ const counterSlice = createSlice({
   name: "root",
   initialState,
   reducers: {
+    reminderAccomplished: (state, action) => {
+      state.patientDashboard.reminders =
+        state.patientDashboard.reminders.filter(
+          ({ id }) => id !== action.payload
+        );
+    },
     increment(state) {
       state.count++;
     },
@@ -67,8 +83,13 @@ const counterSlice = createSlice({
   },
 });
 
-export const { increment, decrement, setLoading, setError } =
-  counterSlice.actions;
+export const {
+  increment,
+  decrement,
+  setLoading,
+  setError,
+  reminderAccomplished,
+} = counterSlice.actions;
 
 export default counterSlice.reducer;
 export const store = configureStore({
