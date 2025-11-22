@@ -53,7 +53,6 @@ const theme = createTheme({
     borderRadius: 12,
   },
 });
-
 function App() {
   return (
     <StyledEngineProvider enableCssLayer>
