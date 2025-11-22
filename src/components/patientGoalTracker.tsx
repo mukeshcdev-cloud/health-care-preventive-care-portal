@@ -22,13 +22,17 @@ import {
   History,
   TrendingUp,
   CalendarToday,
+  ArrowBack,
 } from "@mui/icons-material";
 import { LinearProgress } from "@mui/material";
 // NOTE: Assuming this mockData file exists and is correctly structured
 import mockData from "../data/mockData.json"; 
+import { useNavigate } from "react-router-dom";
+
 
 function PatientGoalTracker() {
   const [showAddForm, setShowAddForm] = useState(false);
+  const navigate = useNavigate();
   const [dailyLog, setDailyLog] = useState({
     steps: "",
     water: "",
@@ -44,7 +48,9 @@ function PatientGoalTracker() {
   const handleInputChange = (field: string, value: string) => {
     setDailyLog((prev) => ({ ...prev, [field]: value }));
   };
-
+const handleBack = () =>{
+    navigate("/dashboard");
+  }
   const handleSave = () => {
     // Validate that at least one field has data
     if (!dailyLog.steps && !dailyLog.water && !dailyLog.sleep && !dailyLog.customGoal) {
@@ -75,7 +81,7 @@ function PatientGoalTracker() {
     };
     
     // Update daily tasks with new values
-    const updatedTasks = dailyTasks.map(task => {
+    let updatedTasks = dailyTasks.map(task => {
       if (task.unit === "steps" && dailyLog.steps) {
         const newCompleted = parseInt(dailyLog.steps);
         return { ...task, completed: newCompleted, status: newCompleted >= task.target ? "completed" : "incomplete" };
@@ -90,6 +96,19 @@ function PatientGoalTracker() {
       }
       return task;
     });
+
+    // Add custom goal as new task if provided
+    if (dailyLog.customGoal) {
+      const newTask = {
+        id: Date.now(),
+        task: dailyLog.customGoal,
+        target: 1,
+        completed: 1,
+        unit: "goal",
+        status: "completed"
+      };
+      updatedTasks = [...updatedTasks, newTask];
+    }
     
     setDailyTasks(updatedTasks);
     // Add new log to the beginning of the history array
@@ -121,6 +140,16 @@ function PatientGoalTracker() {
 
   return (
     <Container maxWidth={false} sx={{ mt: 4, mb: 4, width: '100%' }}>
+      {/* Back Button */}
+      <Box sx={{ mb: 3 }}>
+        <Button
+          startIcon={<ArrowBack />}
+          onClick={handleBack}
+          sx={{ color: "#00897B" }}
+        >
+          Back to Dashboard
+        </Button>
+      </Box>
       {/* Main Content Layout */}
       <Grid container spacing={4} sx={{ minHeight: '100vh' }}>
         
