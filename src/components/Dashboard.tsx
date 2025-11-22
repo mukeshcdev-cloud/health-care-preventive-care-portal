@@ -14,6 +14,8 @@ import {
   ListItemText,
   Divider,
   IconButton,
+  useTheme,
+  alpha,
 } from "@mui/material";
 import {
   DirectionsWalk,
@@ -28,6 +30,9 @@ import {
 } from "@mui/icons-material";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import "./Dashboard.css";
+import WeeklyBarChart from "./WeeklyBarChart";
+import { useSelector } from "react-redux";
+import type { RootState } from "../redux/mainReducer";
 
 const Dashboard = () => {
   const [wellnessData] = useState({
@@ -54,7 +59,11 @@ const Dashboard = () => {
       icon: <CalendarToday color="primary" />,
     },
   ];
-
+  const theme = useTheme();
+  const patientDashboard = useSelector(
+    (store: RootState) => store.root.patientDashboard
+  );
+  console.log("patientDashboard: ", patientDashboard);
   return (
     <Box sx={{ flexGrow: 1, minHeight: "100vh", bgcolor: "#F0F7F7" }}>
       {/* Header / Navbar */}
@@ -84,23 +93,25 @@ const Dashboard = () => {
           <IconButton color="inherit" sx={{ mr: 2 }}>
             <Notifications />
           </IconButton>
-          <Avatar
+            <Avatar
             sx={{
               bgcolor: "#4FC3F7",
               border: "2px solid white",
+              cursor: "pointer",
             }}
-          >
+            onClick={() => (window.location.href = "/profile")}
+            title="Open profile"
+            >
             JD
-          </Avatar>
+            </Avatar>
         </Toolbar>
       </AppBar>
-
       {/* Main Content */}
       <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
         {/* Wellness Goals Progress */}
         <Typography
           variant="h5"
-          sx={{ mb: 3, fontWeight: 600, color: "#00897B" }}
+          sx={{ mb: 3, fontWeight: 600, color: theme.palette.primary.main }}
         >
           Today's Wellness Goals
         </Typography>
@@ -128,11 +139,13 @@ const Dashboard = () => {
                   width: 60,
                   height: 60,
                   borderRadius: "50%",
-                  bgcolor: "rgba(0, 137, 123, 0.1)",
+                  bgcolor: alpha(theme.palette.primary.main, 0.1),
                   mb: 2,
                 }}
               >
-                <DirectionsWalk sx={{ fontSize: 32, color: "#00897B" }} />
+                <DirectionsWalk
+                  sx={{ fontSize: 32, color: theme.palette.primary.main }}
+                />
               </Box>
               <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
                 Steps
@@ -141,7 +154,7 @@ const Dashboard = () => {
                 value={
                   (wellnessData.steps.current / wellnessData.steps.goal) * 100
                 }
-                color="#00897B"
+                color={theme.palette.primary.main}
               />
               <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
                 {wellnessData.steps.current.toLocaleString()} /{" "}
@@ -165,17 +178,14 @@ const Dashboard = () => {
                   mb: 2,
                 }}
               >
-                <Bedtime sx={{ fontSize: 32, color: "#673AB7" }} />
+                <Bedtime
+                  sx={{ fontSize: 32, color: theme.palette.accent.main }}
+                />
               </Box>
               <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
                 Sleep
               </Typography>
-              <CircularProgressWithLabel
-                value={
-                  (wellnessData.sleep.current / wellnessData.sleep.goal) * 100
-                }
-                color="#673AB7"
-              />
+              <WeeklyBarChart data={patientDashboard.sleepHours} />
               <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
                 {wellnessData.sleep.current}h / {wellnessData.sleep.goal}h
               </Typography>
@@ -286,7 +296,7 @@ const Dashboard = () => {
                 </Box>
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: 600, color: "#00897B" }}
+                  sx={{ fontWeight: 600, color: theme.palette.primary.main }}
                 >
                   Health Tip of the Day
                 </Typography>
@@ -307,7 +317,11 @@ const Dashboard = () => {
             <CardContent sx={{ p: 3 }}>
               <Typography
                 variant="h6"
-                sx={{ mb: 2, fontWeight: 600, color: "#00897B" }}
+                sx={{
+                  mb: 2,
+                  fontWeight: 600,
+                  color: theme.palette.primary.main,
+                }}
               >
                 Preventive Care Reminders
               </Typography>

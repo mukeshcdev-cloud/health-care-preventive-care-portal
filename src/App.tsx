@@ -4,11 +4,20 @@ import {
   createTheme,
 } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+<<<<<<< HEAD
+=======
+import LoginScreen from "./components/LoginScreen";
+import Dashboard from "./components/Dashboard";
+import ProfileScreen from "./screens/ProfileScreen";
+>>>>>>> 938521b32a3332ee640d3ea352441caf07f9538b
 import { configureStore } from "@reduxjs/toolkit";
 import reducer from "./redux/mainReducer";
 import { Provider } from "react-redux";
 import { GlobalStyles } from "@mui/material";
+<<<<<<< HEAD
 import Layout from "./Layout";
+=======
+>>>>>>> 938521b32a3332ee640d3ea352441caf07f9538b
 
 const theme = createTheme({
   palette: {
@@ -21,6 +30,11 @@ const theme = createTheme({
       main: "#0288D1",
       light: "#4FC3F7",
       dark: "#01579B",
+    },
+    accent: {
+      main: "#673AB7",
+      light: "#9572D2",
+      dark: "#482880",
     },
     background: {
       default: "#F0F7F7",
@@ -43,7 +57,13 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+<<<<<<< HEAD
           <Layout />
+=======
+          {isLoggedIn ? (window.location.pathname === "/profile" ? <ProfileScreen /> : <Dashboard />) : (
+            <LoginScreen />
+          )}
+>>>>>>> 938521b32a3332ee640d3ea352441caf07f9538b
         </ThemeProvider>
       </Provider>
     </StyledEngineProvider>
