@@ -1,4 +1,8 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import type { DayOfWeek } from "../constants/days";
 
 type ReduxState = {
@@ -67,5 +71,9 @@ export const { increment, decrement, setLoading, setError } =
   counterSlice.actions;
 
 export default counterSlice.reducer;
+export const store = configureStore({
+  reducer: { root: counterSlice.reducer },
+});
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
