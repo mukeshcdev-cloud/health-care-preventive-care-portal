@@ -1,30 +1,33 @@
-import { useState } from "react";
-import {
-  StyledEngineProvider,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material/styles";
+/**
+ * App Component
+ *
+ * Root component of the Healthcare Wellness Portal application.
+ * Sets up the theme, routing, and global providers.
+ */
+
+import { BrowserRouter as Router } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import LoginScreen from "./components/LoginScreen";
-import Dashboard from "./components/Dashboard";
-import { configureStore } from "@reduxjs/toolkit";
-import reducer from "./redux/mainReducer";
-import { Provider } from "react-redux";
-import { GlobalStyles } from "@mui/material";
+import { AppRouter } from "./navigation";
+
+/**
+ * Material UI Theme Configuration
+ * Healthcare-focused color palette with teal and blue tones
+ */
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#00897B",
+      main: "#00897B", // Teal
       light: "#4DB6AC",
       dark: "#00695C",
     },
     secondary: {
-      main: "#0288D1",
+      main: "#0288D1", // Blue
       light: "#4FC3F7",
       dark: "#01579B",
     },
     background: {
-      default: "#F0F7F7",
+      default: "#F0F7F7", // Light teal background
       paper: "#FFFFFF",
     },
   },
@@ -36,20 +39,14 @@ const theme = createTheme({
   },
 });
 
-const store = configureStore({ reducer: { root: reducer } });
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Change to false to see login screen
-
   return (
-    <StyledEngineProvider enableCssLayer>
-      <GlobalStyles styles="@layer theme, base, mui, components, utilities;" />
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {isLoggedIn ? <Dashboard /> : <LoginScreen />}
-        </ThemeProvider>
-      </Provider>
-    </StyledEngineProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <AppRouter />
+      </Router>
+    </ThemeProvider>
   );
 }
 
