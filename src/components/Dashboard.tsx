@@ -25,6 +25,7 @@ import {
   Lightbulb,
   Menu as MenuIcon,
   Notifications,
+  TrackChanges,
 } from "@mui/icons-material";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import "./Dashboard.css";
@@ -41,17 +42,17 @@ const Dashboard = () => {
     {
       title: "Annual Blood Test",
       date: "25 Jan 2025",
-      icon: <CalendarToday color="primary" />,
+      icon: <TrackChanges color="primary" />,
     },
     {
       title: "Dental Checkup",
       date: "10 Feb 2025",
-      icon: <NotificationsActive color="secondary" />,
+      icon: <TrackChanges color="secondary" />,
     },
     {
       title: "Eye Examination",
       date: "15 Feb 2025",
-      icon: <CalendarToday color="primary" />,
+      icon: <TrackChanges color="primary" />,
     },
   ];
 
@@ -81,6 +82,9 @@ const Dashboard = () => {
           >
             Wellness Dashboard
           </Typography>
+          <IconButton color="inherit" sx={{ mr: 1 }}>
+            <TrackChanges />
+          </IconButton>
           <IconButton color="inherit" sx={{ mr: 2 }}>
             <Notifications />
           </IconButton>
