@@ -3,11 +3,13 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 interface CircularProgressWithLabelProps {
   value: number;
   color: string;
+  label: string;
 }
 
 const CircularProgressWithLabel = ({
   value,
   color,
+  label,
 }: CircularProgressWithLabelProps) => {
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
@@ -53,7 +55,7 @@ const CircularProgressWithLabel = ({
           component="div"
           sx={{ fontWeight: 700, color: color }}
         >
-          {`${Math.round(value)}%`}
+          {label ?? `${Math.round(value)}`}%
         </Typography>
       </Box>
     </Box>
