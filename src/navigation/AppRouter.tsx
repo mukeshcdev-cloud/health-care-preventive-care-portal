@@ -39,6 +39,7 @@ import Dashboard from "../components/Dashboard";
 // Import future pages here as you create them
 import Profile from "../pages/Profile";
 import Settings from "../pages/Settings";
+import ProviderLayout from "../components/Provider/ProviderLayout";
 // import Settings from '../pages/Settings';
 // import WellnessDashboard from '../pages/WellnessDashboard';
 
@@ -64,6 +65,7 @@ const AppRouter = () => {
           </ProtectedRoute>
         }
       />
+      
 
       {/* Profile Route - User profile page */}
       <Route
@@ -81,6 +83,14 @@ const AppRouter = () => {
         element={
           <ProtectedRoute>
             <Settings />
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path={ROUTES.PROVIDER_DASHBOARD}
+        element={
+          <ProtectedRoute>
+            <ProviderLayout />
           </ProtectedRoute>
         }
       />
