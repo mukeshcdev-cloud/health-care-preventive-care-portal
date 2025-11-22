@@ -122,7 +122,7 @@ const PatientDetailView: React.FC<PatientDetailViewProps> = ({ patientId, onBack
               </Typography>
               {patient.goals.length === 0 ? (
                 <Typography variant="body2" className="text-gray-500">
-                  No goals set
+                  10000
                 </Typography>
               ) : (
                 <List>
