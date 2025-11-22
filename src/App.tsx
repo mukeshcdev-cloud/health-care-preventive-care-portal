@@ -7,6 +7,7 @@ import {
 import CssBaseline from "@mui/material/CssBaseline";
 import LoginScreen from "./components/LoginScreen";
 import Dashboard from "./components/Dashboard";
+import ProfileScreen from "./screens/ProfileScreen";
 import { configureStore } from "@reduxjs/toolkit";
 import reducer from "./redux/mainReducer";
 import { Provider } from "react-redux";
@@ -46,7 +47,9 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {isLoggedIn ? <Dashboard /> : <LoginScreen />}
+          {isLoggedIn ? (window.location.pathname === "/profile" ? <ProfileScreen /> : <Dashboard />) : (
+            <LoginScreen />
+          )}
         </ThemeProvider>
       </Provider>
     </StyledEngineProvider>

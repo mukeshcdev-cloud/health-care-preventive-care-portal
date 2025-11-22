@@ -84,14 +84,17 @@ const Dashboard = () => {
           <IconButton color="inherit" sx={{ mr: 2 }}>
             <Notifications />
           </IconButton>
-          <Avatar
+            <Avatar
             sx={{
               bgcolor: "#4FC3F7",
               border: "2px solid white",
+              cursor: "pointer",
             }}
-          >
+            onClick={() => (window.location.href = "/profile")}
+            title="Open profile"
+            >
             JD
-          </Avatar>
+            </Avatar>
         </Toolbar>
       </AppBar>
 
