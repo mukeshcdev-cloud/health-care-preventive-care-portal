@@ -38,7 +38,7 @@ function PatientGoalTracker() {
 
   // Using mock data for initial state
   const patientInfo = mockData.patientInfo;
-  const dailyTasks = mockData.dailyTasks;
+  const [dailyTasks, setDailyTasks] = useState(mockData.dailyTasks);
   const [history, setHistory] = useState(mockData.history);
 
   const handleInputChange = (field: string, value: string) => {
@@ -52,6 +52,20 @@ function PatientGoalTracker() {
       return;
     }
 
+    // Validate numeric inputs
+    if (dailyLog.steps && (parseInt(dailyLog.steps) < 0 || parseInt(dailyLog.steps) > 50000)) {
+      alert("Steps must be between 0 and 50,000");
+      return;
+    }
+    if (dailyLog.water && (parseFloat(dailyLog.water) < 0 || parseFloat(dailyLog.water) > 10)) {
+      alert("Water intake must be between 0 and 10 liters");
+      return;
+    }
+    if (dailyLog.sleep && (parseFloat(dailyLog.sleep) < 0 || parseFloat(dailyLog.sleep) > 24)) {
+      alert("Sleep hours must be between 0 and 24");
+      return;
+    }
+
     const newEntry = {
       date: new Date().toISOString().split("T")[0],
       steps: parseInt(dailyLog.steps) || 0,
@@ -60,6 +74,24 @@ function PatientGoalTracker() {
       customGoal: dailyLog.customGoal || "",
     };
     
+    // Update daily tasks with new values
+    const updatedTasks = dailyTasks.map(task => {
+      if (task.unit === "steps" && dailyLog.steps) {
+        const newCompleted = parseInt(dailyLog.steps);
+        return { ...task, completed: newCompleted, status: newCompleted >= task.target ? "completed" : "incomplete" };
+      }
+      if (task.unit === "L" && dailyLog.water) {
+        const newCompleted = parseFloat(dailyLog.water);
+        return { ...task, completed: newCompleted, status: newCompleted >= task.target ? "completed" : "incomplete" };
+      }
+      if (task.unit === "hrs" && dailyLog.sleep) {
+        const newCompleted = parseFloat(dailyLog.sleep);
+        return { ...task, completed: newCompleted, status: newCompleted >= task.target ? "completed" : "incomplete" };
+      }
+      return task;
+    });
+    
+    setDailyTasks(updatedTasks);
     // Add new log to the beginning of the history array
     setHistory([newEntry, ...history]); 
     // Clear the form
