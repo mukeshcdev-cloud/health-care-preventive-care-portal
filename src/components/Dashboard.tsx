@@ -44,19 +44,6 @@ const Dashboard = () => {
     calories: { current: 420, goal: 500 },
   });
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    navigate("/login");
-  };
-
   const reminders = [
     {
       title: "Annual Blood Test",
@@ -74,6 +61,19 @@ const Dashboard = () => {
       icon: <CalendarToday color="primary" />,
     },
   ];
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    navigate("/login");
+  };
 
   return (
     <Box sx={{ flexGrow: 1, minHeight: "100vh", bgcolor: "#F0F7F7" }}>
@@ -111,7 +111,6 @@ const Dashboard = () => {
               border: "2px solid white",
               cursor: "pointer",
             }}
-            title="Open profile"
           >
             JD
           </Avatar>
