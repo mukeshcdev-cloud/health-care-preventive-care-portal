@@ -152,14 +152,7 @@ const RegistrationScreen = () => {
               validationSchema={validationSchema}
               onSubmit={handleRegister}
             >
-              {({
-                errors,
-                touched,
-                values,
-                handleChange,
-                handleBlur,
-                setFieldValue,
-              }) => (
+              {({ errors, touched, values, handleChange, handleBlur }) => (
                 <Form>
                   <Box sx={{ display: "grid", gap: 3 }}>
                     {/* Full Name */}
@@ -171,7 +164,11 @@ const RegistrationScreen = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={touched.fullName && Boolean(errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
+                      helperText={
+                        touched.fullName && errors.fullName
+                          ? String(errors.fullName)
+                          : ""
+                      }
                     />
 
                     {/* Mobile Number & Email */}
@@ -192,7 +189,11 @@ const RegistrationScreen = () => {
                         error={
                           touched.mobileNumber && Boolean(errors.mobileNumber)
                         }
-                        helperText={touched.mobileNumber && errors.mobileNumber}
+                        helperText={
+                          touched.mobileNumber && errors.mobileNumber
+                            ? String(errors.mobileNumber)
+                            : ""
+                        }
                       />
                       <TextField
                         fullWidth
@@ -203,7 +204,11 @@ const RegistrationScreen = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.email && Boolean(errors.email)}
-                        helperText={touched.email && errors.email}
+                        helperText={
+                          touched.email && errors.email
+                            ? String(errors.email)
+                            : ""
+                        }
                       />
                     </Box>
 
@@ -224,7 +229,9 @@ const RegistrationScreen = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.dob && Boolean(errors.dob)}
-                        helperText={touched.dob && errors.dob}
+                        helperText={
+                          touched.dob && errors.dob ? String(errors.dob) : ""
+                        }
                         InputLabelProps={{ shrink: true }}
                       />
                       <FormControl
@@ -244,7 +251,9 @@ const RegistrationScreen = () => {
                           <MenuItem value="other">Other</MenuItem>
                         </Select>
                         {touched.gender && errors.gender && (
-                          <FormHelperText>{errors.gender}</FormHelperText>
+                          <FormHelperText>
+                            {String(errors.gender)}
+                          </FormHelperText>
                         )}
                       </FormControl>
                     </Box>
@@ -260,7 +269,11 @@ const RegistrationScreen = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={touched.address && Boolean(errors.address)}
-                      helperText={touched.address && errors.address}
+                      helperText={
+                        touched.address && errors.address
+                          ? String(errors.address)
+                          : ""
+                      }
                     />
 
                     {/* Blood Group & Marital Status */}
@@ -293,7 +306,9 @@ const RegistrationScreen = () => {
                           <MenuItem value="O-">O-</MenuItem>
                         </Select>
                         {touched.bloodGroup && errors.bloodGroup && (
-                          <FormHelperText>{errors.bloodGroup}</FormHelperText>
+                          <FormHelperText>
+                            {String(errors.bloodGroup)}
+                          </FormHelperText>
                         )}
                       </FormControl>
 
@@ -318,7 +333,7 @@ const RegistrationScreen = () => {
                         </Select>
                         {touched.maritalStatus && errors.maritalStatus && (
                           <FormHelperText>
-                            {errors.maritalStatus}
+                            {String(errors.maritalStatus)}
                           </FormHelperText>
                         )}
                       </FormControl>
@@ -338,6 +353,8 @@ const RegistrationScreen = () => {
                       }
                       helperText={
                         touched.emergencyContact && errors.emergencyContact
+                          ? String(errors.emergencyContact)
+                          : ""
                       }
                     />
 
@@ -374,7 +391,9 @@ const RegistrationScreen = () => {
                         }
                       />
                       {touched.consent && errors.consent && (
-                        <FormHelperText>{errors.consent}</FormHelperText>
+                        <FormHelperText>
+                          {String(errors.consent)}
+                        </FormHelperText>
                       )}
                     </FormControl>
 

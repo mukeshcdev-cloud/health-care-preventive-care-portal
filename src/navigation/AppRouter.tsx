@@ -35,9 +35,10 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import LoginScreen from "../components/LoginScreen";
 import RegistrationScreen from "../components/RegistrationScreen";
 import Dashboard from "../components/Dashboard";
+import PatientGoalTracker from "../components/patientGoalTracker";
 
 // Import future pages here as you create them
-import Profile from "../pages/Profile";
+import Profile from "../screens/ProfileScreen";
 import Settings from "../pages/Settings";
 import ProviderLayout from "../components/Provider/ProviderLayout";
 // import Settings from '../pages/Settings';
@@ -66,6 +67,16 @@ const AppRouter = () => {
         }
       />
       
+
+       {/* Tracker Route - Main wellness dashboard */}
+      <Route
+        path={ROUTES.TRACKER}
+        element={
+          <ProtectedRoute>
+            <PatientGoalTracker />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Profile Route - User profile page */}
       <Route

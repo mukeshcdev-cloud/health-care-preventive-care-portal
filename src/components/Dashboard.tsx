@@ -31,6 +31,7 @@ import {
   Lightbulb,
   Menu as MenuIcon,
   Notifications,
+  TrackChanges,
   Logout,
 } from "@mui/icons-material";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
@@ -46,7 +47,9 @@ const Dashboard = () => {
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const handlePatientTracker = () =>{
+    navigate("/tracker");
+  }
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -60,17 +63,17 @@ const Dashboard = () => {
     {
       title: "Annual Blood Test",
       date: "25 Jan 2025",
-      icon: <CalendarToday color="primary" />,
+      icon: <TrackChanges color="primary" />,
     },
     {
       title: "Dental Checkup",
       date: "10 Feb 2025",
-      icon: <NotificationsActive color="secondary" />,
+      icon: <TrackChanges color="secondary" />,
     },
     {
       title: "Eye Examination",
       date: "15 Feb 2025",
-      icon: <CalendarToday color="primary" />,
+      icon: <TrackChanges color="primary" />,
     },
   ];
   const theme = useTheme();
@@ -114,6 +117,9 @@ const Dashboard = () => {
           >
             Wellness Dashboard
           </Typography>
+          <IconButton color="inherit" sx={{ mr: 1 }}>
+            <TrackChanges onClick={handlePatientTracker}/>
+          </IconButton>
           <IconButton color="inherit" sx={{ mr: 2 }}>
             <Notifications />
           </IconButton>
@@ -336,6 +342,173 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </Box>
+          {/* SECOND GRID (4 cards again) */}
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, 1fr)",
+                md: "repeat(4, 1fr)",
+              },
+              gap: 3,
+              mb: 3,
+            }}
+          >
+            {/* Steps */}
+            <Card className="wellness-card">
+              <CardContent sx={{ textAlign: "center", p: 3 }}>
+                <Box
+                  sx={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 60,
+                    height: 60,
+                    borderRadius: "50%",
+                    bgcolor: "rgba(0, 137, 123, 0.1)",
+                    mb: 2,
+                  }}
+                >
+                  <DirectionsWalk sx={{ fontSize: 32, color: "#00897B" }} />
+                </Box>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                  Steps
+                </Typography>
+                <CircularProgressWithLabel
+                  value={
+                    (wellnessData.steps.current / wellnessData.steps.goal) * 100
+                  }
+                  color="#00897B"
+                />
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 2 }}
+                >
+                  {wellnessData.steps.current.toLocaleString()} /{" "}
+                  {wellnessData.steps.goal.toLocaleString()}
+                </Typography>
+              </CardContent>
+            </Card>
+
+            {/* Sleep */}
+            <Card className="wellness-card">
+              <CardContent sx={{ textAlign: "center", p: 3 }}>
+                <Box
+                  sx={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 60,
+                    height: 60,
+                    borderRadius: "50%",
+                    bgcolor: "rgba(103, 58, 183, 0.1)",
+                    mb: 2,
+                  }}
+                >
+                  <Bedtime sx={{ fontSize: 32, color: "#673AB7" }} />
+                </Box>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                  Sleep
+                </Typography>
+                <CircularProgressWithLabel
+                  value={
+                    (wellnessData.sleep.current / wellnessData.sleep.goal) * 100
+                  }
+                  color="#673AB7"
+                />
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 2 }}
+                >
+                  {wellnessData.sleep.current}h / {wellnessData.sleep.goal}h
+                </Typography>
+              </CardContent>
+            </Card>
+
+            {/* Hydration */}
+            <Card className="wellness-card">
+              <CardContent sx={{ textAlign: "center", p: 3 }}>
+                <Box
+                  sx={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 60,
+                    height: 60,
+                    borderRadius: "50%",
+                    bgcolor: "rgba(2, 136, 209, 0.1)",
+                    mb: 2,
+                  }}
+                >
+                  <LocalDrink sx={{ fontSize: 32, color: "#0288D1" }} />
+                </Box>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                  Hydration
+                </Typography>
+                <CircularProgressWithLabel
+                  value={
+                    (wellnessData.hydration.current /
+                      wellnessData.hydration.goal) *
+                    100
+                  }
+                  color="#0288D1"
+                />
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 2 }}
+                >
+                  {wellnessData.hydration.current}L /{" "}
+                  {wellnessData.hydration.goal}L
+                </Typography>
+              </CardContent>
+            </Card>
+
+            {/* Calories */}
+            <Card className="wellness-card">
+              <CardContent sx={{ textAlign: "center", p: 3 }}>
+                <Box
+                  sx={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 60,
+                    height: 60,
+                    borderRadius: "50%",
+                    bgcolor: "rgba(255, 87, 34, 0.1)",
+                    mb: 2,
+                  }}
+                >
+                  <LocalFireDepartment
+                    sx={{ fontSize: 32, color: "#FF5722" }}
+                  />
+                </Box>
+                <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                  Calories
+                </Typography>
+                <CircularProgressWithLabel
+                  value={
+                    (wellnessData.calories.current /
+                      wellnessData.calories.goal) *
+                    100
+                  }
+                  color="#FF5722"
+                />
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 2 }}
+                >
+                  {wellnessData.calories.current} / {wellnessData.calories.goal}{" "}
+                  kcal
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
+          {/* THIRD GRID (Tips + Reminders) */}
           <Box
             sx={{
               display: "grid",

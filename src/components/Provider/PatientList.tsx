@@ -13,6 +13,7 @@ import {
   CircularProgress,
   Alert,
   Grid,
+  InputAdornment,
 } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
 import { usePatients } from "../../hooks/usePatients";
@@ -22,6 +23,16 @@ const PatientList: React.FC<{ onPatientSelect: (patientId: string) => void }> = 
   const [searchQuery, setSearchQuery] = useState("");
   const [complianceFilter, setComplianceFilter] = useState<ComplianceStatus | "All">("All");
   const { patients, loading, error } = usePatients({ searchQuery, complianceFilter });
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    setSearchQuery(e.target.value);
+  };
+
+  const handleFilterChange = (e: any) => {
+    e.stopPropagation();
+    setComplianceFilter(e.target.value as ComplianceStatus | "All");
+  };
 
   const getComplianceColor = (status: ComplianceStatus) => {
     switch (status) {
@@ -65,20 +76,34 @@ const PatientList: React.FC<{ onPatientSelect: (patientId: string) => void }> = 
             fullWidth
             placeholder="Search patients by name or email..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleSearchChange}
+            onClick={(e) => e.stopPropagation()}
+            onMouseDown={(e) => e.stopPropagation()}
+            onFocus={(e) => e.stopPropagation()}
             InputProps={{
-              startAdornment: <SearchIcon className="mr-2 text-gray-400" />,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ color: "text.secondary" }} />
+                </InputAdornment>
+              ),
             }}
-            className="bg-white"
+            sx={{ 
+              bgcolor: "background.paper",
+              "& .MuiInputBase-root": {
+                cursor: "text",
+              },
+            }}
           />
         </Grid>
         <Grid item xs={12} md={4}>
-          <FormControl fullWidth className="bg-white">
+          <FormControl fullWidth sx={{ bgcolor: "background.paper" }}>
             <InputLabel>Filter by Compliance</InputLabel>
             <Select
               value={complianceFilter}
               label="Filter by Compliance"
-              onChange={(e) => setComplianceFilter(e.target.value as ComplianceStatus | "All")}
+              onChange={handleFilterChange}
+              onClick={(e) => e.stopPropagation()}
+              onMouseDown={(e) => e.stopPropagation()}
             >
               <MenuItem value="All">All</MenuItem>
               <MenuItem value="High">High</MenuItem>

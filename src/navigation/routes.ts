@@ -18,6 +18,7 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
   PROFILE: "/profile",
   SETTINGS: "/settings",
+  TRACKER:"/tracker",
   WELLNESS_DASHBOARD: "/wellness-dashboard",
   PROVIDER_DASHBOARD: "/provider",
   PROVIDER_REPORTS:"provider/reports",
@@ -76,6 +77,13 @@ export const ROUTE_METADATA = {
     isPublic: false,
     requiresAuth: false,
   },
+
+  [ROUTES.TRACKER]: {
+    title: "Patient Goal Tracker",
+    isPublic: false,
+    requiresAuth: true,
+  },
+
 };
 
 export default ROUTES;
