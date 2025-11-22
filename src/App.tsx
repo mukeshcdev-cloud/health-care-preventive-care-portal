@@ -1,16 +1,15 @@
-import { useState } from "react";
 import {
   StyledEngineProvider,
   ThemeProvider,
   createTheme,
 } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import LoginScreen from "./components/LoginScreen";
-import Dashboard from "./components/Dashboard";
 import { configureStore } from "@reduxjs/toolkit";
 import reducer from "./redux/mainReducer";
 import { Provider } from "react-redux";
 import { GlobalStyles } from "@mui/material";
+import Layout from "./Layout";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -38,15 +37,13 @@ const theme = createTheme({
 
 const store = configureStore({ reducer: { root: reducer } });
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Change to false to see login screen
-
   return (
     <StyledEngineProvider enableCssLayer>
       <GlobalStyles styles="@layer theme, base, mui, components, utilities;" />
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {isLoggedIn ? <Dashboard /> : <LoginScreen />}
+          <Layout />
         </ThemeProvider>
       </Provider>
     </StyledEngineProvider>
