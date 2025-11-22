@@ -20,6 +20,7 @@ export const ROUTES = {
   SETTINGS: "/settings",
   WELLNESS_DASHBOARD: "/wellness-dashboard",
   PROVIDER_DASHBOARD: "/provider",
+  PROVIDER_REPORTS:"provider/reports",
 
   // Add more routes here as needed
   // APPOINTMENTS: '/appointments',
@@ -69,6 +70,11 @@ export const ROUTE_METADATA = {
     title: "Provider Dashboard",
     isPublic: false,
     requiresAuth: true,
+  },
+  [ROUTES.PROVIDER_REPORTS]: {
+    title: "Provider Report",
+    isPublic: false,
+    requiresAuth: false,
   },
 };
 
