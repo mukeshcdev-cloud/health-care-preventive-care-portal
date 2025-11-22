@@ -316,10 +316,20 @@ const Dashboard = () => {
                   Calories
                 </Typography>
                 <CircularProgressWithLabel
-                  value={
+                  label={(
                     (wellnessData.calories.current /
                       wellnessData.calories.goal) *
                     100
+                  ).toString()}
+                  value={
+                    (wellnessData.calories.current /
+                      wellnessData.calories.goal) *
+                      100 >
+                    100
+                      ? 100
+                      : (wellnessData.calories.current /
+                          wellnessData.calories.goal) *
+                        100
                   }
                   color="#FF5722"
                 />

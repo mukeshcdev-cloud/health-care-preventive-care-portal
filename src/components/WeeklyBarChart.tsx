@@ -27,23 +27,24 @@ type Props = {
 const WeeklyBarChart: FC<Props> = ({ data }) => {
   const theme = useTheme();
   return (
-    <Card>
+    <div>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Weekly Values
+          Weekly Hours
         </Typography>
 
         <ChartContainer>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data}>
               <Tooltip />
+              <XAxis />
               {/* ⛔️ No <Legend /> */}
               <Bar dataKey="value" fill="#673AB7" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>
       </CardContent>
-    </Card>
+    </div>
   );
 };
 export default WeeklyBarChart;
