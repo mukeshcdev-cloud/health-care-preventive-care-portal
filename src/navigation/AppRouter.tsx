@@ -38,7 +38,7 @@ import Dashboard from "../components/Dashboard";
 import PatientGoalTracker from "../components/patientGoalTracker";
 
 // Import future pages here as you create them
-import Profile from "../pages/Profile";
+import Profile from "../screens/ProfileScreen";
 import Settings from "../pages/Settings";
 // import Settings from '../pages/Settings';
 // import WellnessDashboard from '../pages/WellnessDashboard';
