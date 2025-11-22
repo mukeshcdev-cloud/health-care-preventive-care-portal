@@ -3,7 +3,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import LoginScreen from "./components/LoginScreen";
 import Dashboard from "./components/Dashboard";
-
+import { configureStore } from "@reduxjs/toolkit";
+import reducer from "./redux/mainReducer";
+import { Provider } from "react-redux";
 const theme = createTheme({
   palette: {
     primary: {
@@ -34,10 +36,12 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Change to false to see login screen
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {isLoggedIn ? <Dashboard /> : <LoginScreen />}
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {isLoggedIn ? <Dashboard /> : <LoginScreen />}
+      </ThemeProvider>
+    </Provider>
   );
 }
 
