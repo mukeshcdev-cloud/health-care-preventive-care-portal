@@ -1,5 +1,5 @@
 const Main = () => {
-  return <h2 style={{ textAlign: "center" }}>Hello world</h2>;
+  return <h2>Hello world</h2>;
 };
 
 export default Main;
