@@ -46,6 +46,9 @@ const LoginScreen = () => {
     if (values.email === "test@test.com" && values.password === "Test@12345") {
       localStorage.setItem("isAuthenticated", "true");
       navigate("/dashboard");
+    }else if (values.email === "provider@provider.com" && values.password === "Test@12345") {
+      localStorage.setItem("isAuthenticated", "true");
+      navigate("/provider");
     } else {
       setLoginError("Invalid credentials. Use test@test.com / Test@12345");
     }

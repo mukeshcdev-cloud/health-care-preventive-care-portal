@@ -20,6 +20,8 @@ export const ROUTES = {
   SETTINGS: "/settings",
   TRACKER:"/tracker",
   WELLNESS_DASHBOARD: "/wellness-dashboard",
+  PROVIDER_DASHBOARD: "/provider",
+  PROVIDER_REPORTS:"provider/reports",
 
   // Add more routes here as needed
   // APPOINTMENTS: '/appointments',
@@ -65,11 +67,23 @@ export const ROUTE_METADATA = {
     isPublic: false,
     requiresAuth: true,
   },
+   [ROUTES.PROVIDER_DASHBOARD]: {
+    title: "Provider Dashboard",
+    isPublic: false,
+    requiresAuth: true,
+  },
+  [ROUTES.PROVIDER_REPORTS]: {
+    title: "Provider Report",
+    isPublic: false,
+    requiresAuth: false,
+  },
+
   [ROUTES.TRACKER]: {
     title: "Patient Goal Tracker",
     isPublic: false,
     requiresAuth: true,
   },
+
 };
 
 export default ROUTES;
