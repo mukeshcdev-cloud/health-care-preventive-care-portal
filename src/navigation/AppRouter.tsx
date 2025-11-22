@@ -37,7 +37,7 @@ import RegistrationScreen from "../components/RegistrationScreen";
 import Dashboard from "../components/Dashboard";
 
 // Import future pages here as you create them
-import Profile from "../pages/Profile";
+import Profile from "../screens/ProfileScreen";
 import Settings from "../pages/Settings";
 // import Settings from '../pages/Settings';
 // import WellnessDashboard from '../pages/WellnessDashboard';
