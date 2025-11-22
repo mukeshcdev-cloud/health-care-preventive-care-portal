@@ -29,7 +29,7 @@
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ROUTES } from "./routes";
-import ProtectedRoute from "./ProtectedRoute";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 // Import Page Components
 import LoginScreen from "../components/LoginScreen";

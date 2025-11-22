@@ -20,7 +20,7 @@ import { AppRouter } from "./navigation";
  */
 
 import { configureStore } from "@reduxjs/toolkit";
-import reducer from "./redux/mainReducer";
+import reducer, { store } from "./redux/mainReducer";
 import { Provider } from "react-redux";
 import { GlobalStyles } from "@mui/material";
 
@@ -53,7 +53,6 @@ const theme = createTheme({
     borderRadius: 12,
   },
 });
-const store = configureStore({ reducer: { root: reducer } });
 function App() {
   return (
     <StyledEngineProvider enableCssLayer>
