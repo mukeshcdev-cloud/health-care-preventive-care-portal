@@ -1,5 +1,4 @@
-import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router/dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Box, Toolbar } from "@mui/material";
 import ResponsiveDrawer from "./components/Sidebar";
 import Main from "./screens/Root";

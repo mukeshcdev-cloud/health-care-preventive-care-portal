@@ -1,43 +1,42 @@
+/**
+ * App Component
+ *
+ * Root component of the Healthcare Wellness Portal application.
+ * Sets up the theme, routing, and global providers.
+ */
+
 import {
   StyledEngineProvider,
   ThemeProvider,
   createTheme,
 } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-<<<<<<< HEAD
-=======
-import LoginScreen from "./components/LoginScreen";
-import Dashboard from "./components/Dashboard";
-import ProfileScreen from "./screens/ProfileScreen";
->>>>>>> 938521b32a3332ee640d3ea352441caf07f9538b
+import Layout from "./Layout";
+
+/**
+ * Material UI Theme Configuration
+ * Healthcare-focused color palette with teal and blue tones
+ */
+
 import { configureStore } from "@reduxjs/toolkit";
 import reducer from "./redux/mainReducer";
 import { Provider } from "react-redux";
 import { GlobalStyles } from "@mui/material";
-<<<<<<< HEAD
-import Layout from "./Layout";
-=======
->>>>>>> 938521b32a3332ee640d3ea352441caf07f9538b
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#00897B",
+      main: "#00897B", // Teal
       light: "#4DB6AC",
       dark: "#00695C",
     },
     secondary: {
-      main: "#0288D1",
+      main: "#0288D1", // Blue
       light: "#4FC3F7",
       dark: "#01579B",
     },
-    accent: {
-      main: "#673AB7",
-      light: "#9572D2",
-      dark: "#482880",
-    },
     background: {
-      default: "#F0F7F7",
+      default: "#F0F7F7", // Light teal background
       paper: "#FFFFFF",
     },
   },
@@ -48,7 +47,6 @@ const theme = createTheme({
     borderRadius: 12,
   },
 });
-
 const store = configureStore({ reducer: { root: reducer } });
 function App() {
   return (
@@ -57,13 +55,7 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-<<<<<<< HEAD
           <Layout />
-=======
-          {isLoggedIn ? (window.location.pathname === "/profile" ? <ProfileScreen /> : <Dashboard />) : (
-            <LoginScreen />
-          )}
->>>>>>> 938521b32a3332ee640d3ea352441caf07f9538b
         </ThemeProvider>
       </Provider>
     </StyledEngineProvider>
