@@ -22,13 +22,17 @@ import {
   History,
   TrendingUp,
   CalendarToday,
+  ArrowBack,
 } from "@mui/icons-material";
 import { LinearProgress } from "@mui/material";
 // NOTE: Assuming this mockData file exists and is correctly structured
 import mockData from "../data/mockData.json"; 
+import { useNavigate } from "react-router-dom";
+
 
 function PatientGoalTracker() {
   const [showAddForm, setShowAddForm] = useState(false);
+  const navigate = useNavigate();
   const [dailyLog, setDailyLog] = useState({
     steps: "",
     water: "",
@@ -44,7 +48,9 @@ function PatientGoalTracker() {
   const handleInputChange = (field: string, value: string) => {
     setDailyLog((prev) => ({ ...prev, [field]: value }));
   };
-
+const handleBack = () =>{
+    navigate("/dashboard");
+  }
   const handleSave = () => {
     // Validate that at least one field has data
     if (!dailyLog.steps && !dailyLog.water && !dailyLog.sleep && !dailyLog.customGoal) {
@@ -121,6 +127,16 @@ function PatientGoalTracker() {
 
   return (
     <Container maxWidth={false} sx={{ mt: 4, mb: 4, width: '100%' }}>
+      {/* Back Button */}
+      <Box sx={{ mb: 3 }}>
+        <Button
+          startIcon={<ArrowBack />}
+          onClick={handleBack}
+          sx={{ color: "#00897B" }}
+        >
+          Back to Dashboard
+        </Button>
+      </Box>
       {/* Main Content Layout */}
       <Grid container spacing={4} sx={{ minHeight: '100vh' }}>
         
