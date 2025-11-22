@@ -1,4 +1,8 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import type { DayOfWeek } from "../constants/days";
 
 type ReduxState = {
@@ -8,6 +12,9 @@ type ReduxState = {
   patientDashboard: {
     stepsTaken: number | null;
     sleepHours: { day: DayOfWeek; value: number }[];
+    waterIntake: number | null;
+    calories: number | null;
+    hydration: number | null;
   };
 };
 
@@ -25,18 +32,19 @@ const initialState: ReduxState = {
   loading: false,
   error: null,
   patientDashboard: {
-    stepsTaken: null,
+    stepsTaken: 7500,
     sleepHours: [
-      { day: "Monday", value: 12 },
-      { day: "Tuesday", value: 18 },
+      { day: "Monday", value: 2 },
+      { day: "Tuesday", value: 8 },
       { day: "Wednesday", value: 10 },
-      { day: "Thursday", value: 22 },
-      { day: "Friday", value: 15 },
-      { day: "Saturday", value: 30 },
-      { day: "Sunday", value: 25 },
+      { day: "Thursday", value: 2 },
+      { day: "Friday", value: 5 },
+      { day: "Saturday", value: 10 },
+      { day: "Sunday", value: 5 },
     ],
-    waterIntake: "",
-    calories: "",
+    waterIntake: 7.5,
+    calories: 600,
+    hydration: 1.5,
   },
 };
 
@@ -63,5 +71,9 @@ export const { increment, decrement, setLoading, setError } =
   counterSlice.actions;
 
 export default counterSlice.reducer;
+export const store = configureStore({
+  reducer: { root: counterSlice.reducer },
+});
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

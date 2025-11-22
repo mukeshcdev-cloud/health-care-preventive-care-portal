@@ -35,13 +35,6 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../redux/mainReducer";
 
 const Dashboard = () => {
-  const [wellnessData] = useState({
-    steps: { current: 7500, goal: 10000 },
-    sleep: { current: 6.5, goal: 8 },
-    hydration: { current: 1.5, goal: 2 },
-    calories: { current: 420, goal: 500 },
-  });
-
   const reminders = [
     {
       title: "Annual Blood Test",
@@ -63,7 +56,18 @@ const Dashboard = () => {
   const patientDashboard = useSelector(
     (store: RootState) => store.root.patientDashboard
   );
-  console.log("patientDashboard: ", patientDashboard);
+  const wellnessData = {
+    steps: { current: patientDashboard.stepsTaken, goal: 10000 },
+    sleep: {
+      current: patientDashboard.sleepHours.reduce(
+        (acc, { value }) => acc + value,
+        0
+      ),
+      goal: 8 * 7,
+    },
+    hydration: { current: patientDashboard.hydration, goal: 2 },
+    calories: { current: patientDashboard.calories, goal: 500 },
+  };
   return (
     <Box sx={{ flexGrow: 1, minHeight: "100vh", bgcolor: "#F0F7F7" }}>
       {/* Header / Navbar */}
@@ -93,7 +97,7 @@ const Dashboard = () => {
           <IconButton color="inherit" sx={{ mr: 2 }}>
             <Notifications />
           </IconButton>
-            <Avatar
+          <Avatar
             sx={{
               bgcolor: "#4FC3F7",
               border: "2px solid white",
@@ -101,9 +105,9 @@ const Dashboard = () => {
             }}
             onClick={() => (window.location.href = "/profile")}
             title="Open profile"
-            >
+          >
             JD
-            </Avatar>
+          </Avatar>
         </Toolbar>
       </AppBar>
       {/* Main Content */}
@@ -250,7 +254,12 @@ const Dashboard = () => {
               <CircularProgressWithLabel
                 value={
                   (wellnessData.calories.current / wellnessData.calories.goal) *
+                    100 <
                   100
+                    ? (wellnessData.calories.current /
+                        wellnessData.calories.goal) *
+                      100
+                    : 100
                 }
                 color="#FF5722"
               />

@@ -9,7 +9,7 @@ import LoginScreen from "./components/LoginScreen";
 import Dashboard from "./components/Dashboard";
 import ProfileScreen from "./screens/ProfileScreen";
 import { configureStore } from "@reduxjs/toolkit";
-import reducer from "./redux/mainReducer";
+import reducer, { store } from "./redux/mainReducer";
 import { Provider } from "react-redux";
 import { GlobalStyles } from "@mui/material";
 
@@ -43,7 +43,6 @@ const theme = createTheme({
   },
 });
 
-const store = configureStore({ reducer: { root: reducer } });
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Change to false to see login screen
 
@@ -53,7 +52,13 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {isLoggedIn ? (window.location.pathname === "/profile" ? <ProfileScreen /> : <Dashboard />) : (
+          {isLoggedIn ? (
+            window.location.pathname === "/profile" ? (
+              <ProfileScreen />
+            ) : (
+              <Dashboard />
+            )
+          ) : (
             <LoginScreen />
           )}
         </ThemeProvider>
