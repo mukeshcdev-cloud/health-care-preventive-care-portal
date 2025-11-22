@@ -22,8 +22,7 @@
 
 import { Navigate } from "react-router-dom";
 import { ROUTES } from "./routes";
-
-const ProtectedRoute = ({ children }) => {
+export const ProtectedRoute = ({ children }: any) => {
   /**
    * Check authentication status
    *
@@ -51,5 +50,3 @@ const ProtectedRoute = ({ children }) => {
   // If authenticated, render the protected component
   return children;
 };
-
-export default ProtectedRoute;

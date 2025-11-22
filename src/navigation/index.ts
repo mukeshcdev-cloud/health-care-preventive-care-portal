@@ -7,6 +7,6 @@
  * import { AppRouter, ProtectedRoute, ROUTES } from './navigation';
  */
 
-export { default as AppRouter } from "./AppRouter";
-export { default as ProtectedRoute } from "./ProtectedRoute";
+export { default as AppRouter } from "./AppRouter.tsx";
+// export { ProtectedRoute } from "./ProtectedRoute.tsx";
 export { ROUTES, ROUTE_METADATA } from "./routes";

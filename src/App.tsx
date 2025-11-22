@@ -19,8 +19,7 @@ import { AppRouter } from "./navigation";
  * Healthcare-focused color palette with teal and blue tones
  */
 
-import { configureStore } from "@reduxjs/toolkit";
-import reducer from "./redux/mainReducer";
+import { store } from "./redux/mainReducer";
 import { Provider } from "react-redux";
 import { GlobalStyles } from "@mui/material";
 
@@ -36,6 +35,7 @@ const theme = createTheme({
       light: "#4FC3F7",
       dark: "#01579B",
     },
+    //@ts-ignore
     accent: {
       main: "#673AB7",
       light: "#9572D2",
@@ -53,7 +53,7 @@ const theme = createTheme({
     borderRadius: 12,
   },
 });
-const store = configureStore({ reducer: { root: reducer } });
+
 function App() {
   return (
     <StyledEngineProvider enableCssLayer>

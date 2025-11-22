@@ -29,13 +29,12 @@
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ROUTES } from "./routes";
-s;
+import { ProtectedRoute } from "./ProtectedRoute";
 
 // Import Page Components
 import LoginScreen from "../components/LoginScreen";
 import RegistrationScreen from "../components/RegistrationScreen";
 import Dashboard from "../components/Dashboard";
-import { ProtectedRoute } from "../navigation/ProtectedRoute";
 
 // Import future pages here as you create them
 import Profile from "../pages/Profile";
