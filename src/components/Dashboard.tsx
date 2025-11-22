@@ -111,6 +111,7 @@ const Dashboard = () => {
               border: "2px solid white",
               cursor: "pointer",
             }}
+            title="Open profile"
           >
             JD
           </Avatar>

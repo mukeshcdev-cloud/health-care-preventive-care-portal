@@ -6,7 +6,11 @@
  */
 
 import { BrowserRouter as Router } from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {
+  StyledEngineProvider,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { AppRouter } from "./navigation";
 
@@ -14,6 +18,11 @@ import { AppRouter } from "./navigation";
  * Material UI Theme Configuration
  * Healthcare-focused color palette with teal and blue tones
  */
+
+import { configureStore } from "@reduxjs/toolkit";
+import reducer from "./redux/mainReducer";
+import { Provider } from "react-redux";
+import { GlobalStyles } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
@@ -38,15 +47,20 @@ const theme = createTheme({
     borderRadius: 12,
   },
 });
-
+const store = configureStore({ reducer: { root: reducer } });
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <AppRouter />
-      </Router>
-    </ThemeProvider>
+    <StyledEngineProvider enableCssLayer>
+      <GlobalStyles styles="@layer theme, base, mui, components, utilities;" />
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router>
+            <AppRouter />
+          </Router>
+        </ThemeProvider>
+      </Provider>
+    </StyledEngineProvider>
   );
 }
 
